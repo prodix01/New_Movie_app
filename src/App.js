@@ -1,12 +1,27 @@
 import React, {Component} from 'react';
 
 class App extends Component {
-  render() {
-    return (
-        <div>
-            <h1>Movie app</h1>
-        </div>
-    );
+
+    //상태값
+    state = {
+        isLoding : true,
+        movies: []
+    };
+
+    //라이프사이클 함수
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({isLoding: false})
+        }, 6000);
+    }
+
+    render() {
+        const {isLoding} = this.state;
+        return (
+            <div>
+                {isLoding ? "Loding..." : "We are ready"}
+            </div>
+        );
   }
 }
 
