@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import Movie from "./Movie";
 
 class App extends Component {
 
@@ -10,23 +11,43 @@ class App extends Component {
     };
 
     getMovies = async() => {
-        const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json");
-        console.log(movies);
+        const {
+            data: {
+                data: {movies}
+            }
+        } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating");
+
+        this.setState({movies, isLoding : false})
+
+
+
+
+        // const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json");
+        // console.log(movies);
     };
 
     //라이프사이클 함수
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({isLoding: false})
-        }, 3000);
         this.getMovies();
     }
 
     render() {
-        const {isLoding} = this.state;
+        const {isLoding, movies} = this.state;
         return (
             <div>
-                {isLoding ? "Loding..." : "We are ready"}
+                {isLoding
+                    ? "Loding..."
+                    : movies.map(movie => (
+                        <Movie
+                            key={movie.id}
+                            year={movie.year}
+                            summary={movie.summary}
+                            id={movie.id}
+                            title={movie.title}
+                            rating={movie.rating}
+                            poster={movie.medium_cover_image}
+                        />
+                    ))}
             </div>
         );
   }
