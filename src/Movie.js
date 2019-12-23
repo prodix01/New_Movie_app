@@ -4,9 +4,13 @@ import PropTypes from "prop-types";
 const Movie = ({id, title, year, rating, summary, poster}) => {
     return (
         <div>
-            <h2></h2>
-            <h4>{title}</h4>
-            <h6>{year}</h6>
+            <img src={poster} alt={title} title={title} />
+            <div>
+                <h3>{title}</h3>
+                <h5>{year}</h5>
+                <p>{summary}</p>
+            </div>
+
 
         </div>
 

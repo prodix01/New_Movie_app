@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import "./App.css";
 import axios from "axios";
 import Movie from "./Movie";
 
@@ -34,21 +35,30 @@ class App extends Component {
     render() {
         const {isLoding, movies} = this.state;
         return (
-            <div>
-                {isLoding
-                    ? "Loding..."
-                    : movies.map(movie => (
-                        <Movie
-                            key={movie.id}
-                            year={movie.year}
-                            summary={movie.summary}
-                            id={movie.id}
-                            title={movie.title}
-                            rating={movie.rating}
-                            poster={movie.medium_cover_image}
-                        />
-                    ))}
-            </div>
+            <section class="container">
+                {isLoding ? (
+                    <div>
+                        <span>Loding...</span>
+                    </div>
+                ) : (
+                    <div>
+                        {
+                            movies.map(movie => (
+                                <Movie
+                                    key={movie.id}
+                                    year={movie.year}
+                                    summary={movie.summary}
+                                    id={movie.id}
+                                    title={movie.title}
+                                    rating={movie.rating}
+                                    poster={movie.medium_cover_image}
+                                />
+                            ))
+                        }
+                    </div>
+                )}
+            </section>
+
         );
   }
 }
